@@ -1,8 +1,13 @@
 package main;
 
+import main.entity.Account;
+import main.repository.AccountCrudOrepations;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 
 public class Main {
     private final String url;
@@ -44,6 +49,7 @@ public class Main {
     public static void main(String[] args) {
         Main mainInstance = Main.getInstance();
         Connection conn = mainInstance.getConnection();
+
 
 
         try {
