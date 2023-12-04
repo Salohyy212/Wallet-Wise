@@ -182,8 +182,7 @@ paths:
         - Accounts
       responses:
         '204':
-            description: Account deleted successfully
-paths:
+          description: Account deleted successfully
   /transactions:
     get:
       summary: Get all transactions
@@ -384,4 +383,5 @@ components:
       content:
         application/json:
           example: { }
+
 
