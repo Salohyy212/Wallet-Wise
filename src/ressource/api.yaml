@@ -338,3 +338,50 @@ paths:
       responses:
         '204':
           $ref: '#/components/responses/SuccessResponse'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        username:
+          type: string
+        email:
+          type: string
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: integer
+        balance:
+          type: number
+
+    Transaction:
+      type: object
+      properties:
+        id:
+          type: integer
+        amount:
+          type: number
+        date:
+          type: string
+          format: date-time
+
+    Currency:
+      type: object
+      properties:
+        id:
+          type: integer
+        code:
+          type: string
+        name:
+          type: string
+  responses:
+    SuccessResponse:
+      description: Successful response
+      content:
+        application/json:
+          example: { }
+
