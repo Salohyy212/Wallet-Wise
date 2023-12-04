@@ -275,4 +275,66 @@ paths:
       responses:
         '204':
           description: Transaction deleted successfully
+  /currencies:
+    get:
+      summary: Get all currencies
+      tags:
+        - Currencies
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
 
+    post:
+      summary: Create a new currency
+      tags:
+        - Currencies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              code: USD
+              name: US Dollar
+      responses:
+        '201':
+          $ref: '#/components/responses/SuccessResponse'
+
+  /currencies/{currencyId}:
+    parameters:
+      - name: currencyId
+        in: path
+        required: true
+        schema:
+          type: integer
+        description: ID of the currency
+
+    get:
+      summary: Get currency by ID
+      tags:
+        - Currencies
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+
+    put:
+      summary: Update currency by ID
+      tags:
+        - Currencies
+      requestBody:
+        required: true
+        content:
+          application/json:
+            example:
+              code: EUR
+              name: Euro
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+
+    delete:
+      summary: Delete currency by ID
+      tags:
+        - Currencies
+      responses:
+        '204':
+          $ref: '#/components/responses/SuccessResponse'
