@@ -176,13 +176,6 @@ paths:
                 id: 101
                 balance: 75.00
 
-    delete:
-      summary: Delete account by ID
-      tags:
-        - Accounts
-      responses:
-        '204':
-          description: Account deleted successfully
   /transactions:
     get:
       summary: Get all transactions
@@ -266,14 +259,6 @@ paths:
                 id: 201
                 amount: 40.00
                 date: '2023-01-22T09:00:00Z'
-
-    delete:
-      summary: Delete transaction by ID
-      tags:
-        - Transactions
-      responses:
-        '204':
-          description: Transaction deleted successfully
   /currencies:
     get:
       summary: Get all currencies
@@ -328,14 +313,6 @@ paths:
               name: Euro
       responses:
         '200':
-          $ref: '#/components/responses/SuccessResponse'
-
-    delete:
-      summary: Delete currency by ID
-      tags:
-        - Currencies
-      responses:
-        '204':
           $ref: '#/components/responses/SuccessResponse'
 components:
   schemas:
