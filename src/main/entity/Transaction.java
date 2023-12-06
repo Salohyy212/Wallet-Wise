@@ -1,19 +1,24 @@
 package main.entity;
 
-import java.time.LocalDate;
+
+
 import java.time.LocalDateTime;
 
 public class Transaction {
     private int id;
+    private String label;
     private Double amount;
-    private LocalDate date;
-    private  int accountID;
+    private LocalDateTime dateTime;
+    private int accountId;
+    private String type; // "debit" or "credit"
 
-    public Transaction(int id, Double amount, LocalDate date, int accountID) {
+    public Transaction(int id, String label, Double amount, LocalDateTime dateTime, int accountId, String type) {
         this.id = id;
+        this.label = label;
         this.amount = amount;
-        this.date = date;
-        this.accountID = accountID;
+        this.dateTime = dateTime;
+        this.accountId = accountId;
+        this.type = type;
     }
 
     public int getId() {
@@ -24,6 +29,14 @@ public class Transaction {
         this.id = id;
     }
 
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     public Double getAmount() {
         return amount;
     }
@@ -32,29 +45,39 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public LocalDate getDate() {
-        return date;
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
     }
 
-    public int getAccountID() {
-        return accountID;
+    public int getAccountId() {
+        return accountId;
     }
 
     public void setAccountID(int accountID) {
-        this.accountID = accountID;
+        this.accountId = accountId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
+                ", label='" + label + '\'' +
                 ", amount=" + amount +
-                ", date=" + date +
-                ", accountID=" + accountID +
+                ", dateTime=" + dateTime +
+                ", accountId=" + accountId +
+                ", type='" + type + '\'' +
                 '}';
     }
 }

@@ -7,7 +7,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TransactionCrudOperations implements CrudOperations <Transaction>{
+public class TransactionCrudOperations implements CrudOperations<Transaction> {
     private final Main db = Main.getInstance();
     private final Connection connection = db.getConnection();
 
@@ -18,11 +18,13 @@ public class TransactionCrudOperations implements CrudOperations <Transaction>{
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sql)) {
             while (resultSet.next()) {
-                 Transaction transaction = new Transaction(
+                Transaction transaction = new Transaction(
                         resultSet.getInt("id"),
+                        resultSet.getString("label"),
                         resultSet.getDouble("amount"),
-                         resultSet.getDate("date").toLocalDate(),
-                        resultSet.getInt("account_id")
+                        resultSet.getTimestamp("date_time").toLocalDateTime(),
+                        resultSet.getInt("account_id"),
+                        resultSet.getString("type")
                 );
                 transactionList.add(transaction);
             }
@@ -34,12 +36,14 @@ public class TransactionCrudOperations implements CrudOperations <Transaction>{
 
     @Override
     public List<Transaction> saveAll(List<Transaction> toSave) {
-        String insertQuery = "INSERT INTO \"transaction\" (amount, date, account_id) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO \"transaction\" (label, amount, date_time, account_id, type) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             for (Transaction transaction : toSave) {
-                insertStatement.setDouble(1, transaction.getAmount());
-                insertStatement.setDate(2, Date.valueOf(transaction.getDate()));
-                insertStatement.setInt(3, transaction.getAccountID());
+                insertStatement.setString(1, transaction.getLabel());
+                insertStatement.setDouble(2, transaction.getAmount());
+                insertStatement.setTimestamp(3, Timestamp.valueOf(transaction.getDateTime()));
+                insertStatement.setInt(4, transaction.getAccountId());
+                insertStatement.setString(5, transaction.getType());
                 insertStatement.addBatch();
             }
             int[] rowsAffected = insertStatement.executeBatch();
@@ -57,11 +61,13 @@ public class TransactionCrudOperations implements CrudOperations <Transaction>{
 
     @Override
     public Transaction save(Transaction toSave) {
-        String insertQuery = "INSERT INTO \"transaction\" (amount, date, account_id) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO \"transaction\" (label, amount, date_time, account_id, type) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
-            insertStatement.setDouble(1, toSave.getAmount());
-            insertStatement.setDate(2, Date.valueOf(toSave.getDate()));
-            insertStatement.setInt(3, toSave.getAccountID());
+            insertStatement.setString(1, toSave.getLabel());
+            insertStatement.setDouble(2, toSave.getAmount());
+            insertStatement.setTimestamp(3, Timestamp.valueOf(toSave.getDateTime()));
+            insertStatement.setInt(4, toSave.getAccountId());
+            insertStatement.setString(5, toSave.getType());
 
             int rowsAffected = insertStatement.executeUpdate();
             if (rowsAffected > 0) {

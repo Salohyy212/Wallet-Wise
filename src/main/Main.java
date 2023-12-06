@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,16 +68,12 @@ public class Main {
         List<Currency> allCurrencies = currencyCrudOperations.findAll();
         System.out.println("All Currencies:");
         allCurrencies.forEach(System.out::println);
-        Currency newCurrency= new Currency(3, "Euro","€");
-        Currency savedCurrency = currencyCrudOperations.save(newCurrency);
-        System.out.println("New subscriber added: " + savedCurrency);
-
 
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
         List<Transaction> allTransactions = transactionCrudOperations.findAll();
         System.out.println("All Currencies:");
         allCurrencies.forEach(System.out::println);
-        Transaction newTransaction= new Transaction(3, 1000.00,LocalDate.now(),2);
+        Transaction newTransaction= new Transaction(3,"Grocery shopping", 500.00, LocalDateTime.now(),1, "debit");
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);
 
