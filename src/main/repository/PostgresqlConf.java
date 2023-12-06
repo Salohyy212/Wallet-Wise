@@ -1,4 +1,4 @@
-package main;
+package main.repository;
 
 public class PostgresqlConf {
     public final static String URL = System.getenv("DB_URL");

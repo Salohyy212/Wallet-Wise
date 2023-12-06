@@ -11,7 +11,5 @@ CREATE TABLE IF NOT EXISTS transaction (
 
 
 INSERT INTO transaction (label, amount, date_time, account_id, type)
-VALUES ('Online Purchase', 500.00, '2023-12-01 10:30:00', 1, 'debit');
-
-INSERT INTO transaction (label, amount, date_time, account_id, type)
-VALUES ('Salary', 3000.00, '2023-12-02 15:45:00', 2, 'credit');
+VALUES ('Online Purchase', 500.00, CURRENT_TIMESTAMP, 9, 'debit'),
+       ('Salary', 3000.00, CURRENT_TIMESTAMP, 10, 'credit');

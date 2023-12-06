@@ -10,7 +10,7 @@ public class Transaction {
     private Double amount;
     private LocalDateTime dateTime;
     private int accountId;
-    private String type; // "debit" or "credit"
+    private String type;
 
     public Transaction(int id, String label, Double amount, LocalDateTime dateTime, int accountId, String type) {
         this.id = id;
