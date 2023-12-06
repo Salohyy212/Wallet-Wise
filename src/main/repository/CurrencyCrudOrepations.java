@@ -21,7 +21,7 @@ public class CurrencyCrudOrepations implements CrudOperations <Currency>{
                 Currency currency = new Currency(
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
-                        resultSet.getString("symbol")
+                        resultSet.getString("code")
                 );
                 currencyList.add(currency);
             }
@@ -33,11 +33,11 @@ public class CurrencyCrudOrepations implements CrudOperations <Currency>{
 
     @Override
     public List<Currency> saveAll(List<Currency> toSave) {
-        String insertQuery = "INSERT INTO \"currency\" (name, symbol) VALUES (?, ?)";
+        String insertQuery = "INSERT INTO \"currency\" (name, code) VALUES (?, ?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             for (Currency currency : toSave) {
                 insertStatement.setString(1, currency.getName());
-                insertStatement.setString(2, currency.getSymbol());
+                insertStatement.setString(2, currency.getCode());
                 insertStatement.addBatch();
             }
             int[] rowsAffected = insertStatement.executeBatch();
@@ -55,10 +55,10 @@ public class CurrencyCrudOrepations implements CrudOperations <Currency>{
 
     @Override
     public Currency save(Currency toSave) {
-        String insertQuery = "INSERT INTO \"currency\" (name, symbol) VALUES (?, ?)";
+        String insertQuery = "INSERT INTO \"currency\" (name, code) VALUES (?, ?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             insertStatement.setString(1, toSave.getName());
-            insertStatement.setString(2, toSave.getSymbol());
+            insertStatement.setString(2, toSave.getCode());
             int rowsAffected = insertStatement.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet generatedKeys = insertStatement.getGeneratedKeys();

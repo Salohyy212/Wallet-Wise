@@ -1,10 +1,10 @@
 CREATE TABLE IF NOT EXISTS currency (
        id SERIAL PRIMARY KEY,
        name VARCHAR(150),
-       symbol VARCHAR(50)
+       code VARCHAR(255)
     );
 
 
-INSERT INTO currency (name, symbol) VALUES
-   ('Ariary','Ar'),
-   ('Dollar','$');
+INSERT INTO currency (name, code) VALUES
+   ('Ariary','MGA'),
+   ('Euro','EUR');
