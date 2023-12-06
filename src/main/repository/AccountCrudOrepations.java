@@ -22,7 +22,9 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
                         resultSet.getInt("id"),
                         resultSet.getString("name"),
                         resultSet.getDouble("balance"),
-                        resultSet.getInt("currency_id")
+                        resultSet.getInt("currency_id"),
+                        resultSet.getTimestamp("last_update").toLocalDateTime(),
+                        resultSet.getString("type")
                 );
                 accountList.add(account);
             }
@@ -34,12 +36,14 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
 
     @Override
     public List<Account> saveAll(List<Account> toSave) {
-        String insertQuery = "INSERT INTO \"account\" (name, balance, currency_id) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO \"account\" (name, balance, currency_id, last_update, type) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             for (Account account : toSave) {
                 insertStatement.setString(1, account.getName());
                 insertStatement.setDouble(2, account.getBalance());
                 insertStatement.setInt(3, account.getCurrencyId());
+                insertStatement.setTimestamp(3, Timestamp.valueOf(account.getLastUpdate()));
+                insertStatement.setString(4, account.getType());
                 insertStatement.addBatch();
             }
             int[] rowsAffected = insertStatement.executeBatch();
@@ -57,11 +61,14 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
 
     @Override
     public Account save(Account toSave) {
-        String insertQuery = "INSERT INTO \"account\" ( name, balance, currency_id) VALUES (?, ?, ?)";
+        String insertQuery = "INSERT INTO \"account\" (name, balance, currency_id, last_update, type) VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             insertStatement.setString(1, toSave.getName());
             insertStatement.setDouble(2, toSave.getBalance());
-            insertStatement.setInt(3, toSave.getCurrencyId());
+            insertStatement.setInt(4, toSave.getCurrencyId());
+            insertStatement.setTimestamp(3, Timestamp.valueOf(toSave.getLastUpdate()));
+            insertStatement.setString(5, toSave.getType());
+
             int rowsAffected = insertStatement.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet generatedKeys = insertStatement.getGeneratedKeys();

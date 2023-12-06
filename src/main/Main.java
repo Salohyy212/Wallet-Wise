@@ -5,13 +5,13 @@ import main.entity.Currency;
 import main.entity.Transaction;
 import main.repository.AccountCrudOrepations;
 import main.repository.CurrencyCrudOrepations;
+import main.repository.PostgresqlConf;
 import main.repository.TransactionCrudOperations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Main {
@@ -59,7 +59,7 @@ public class Main {
         List<Account> allAccounts = accountCrudOperations.findAll();
         System.out.println("All Accounts:");
         allAccounts.forEach(System.out::println);
-        Account newAccount = new Account(4, "Elise account",100000.00, 1);
+        Account newAccount = new Account(11,  "Emma current account", 220000.00, 2, LocalDateTime.now(),"Mobile Money");
         Account savedAccount = accountCrudOperations.save(newAccount);
         System.out.println("New subscriber added: " + savedAccount);
 
@@ -67,20 +67,14 @@ public class Main {
         List<Currency> allCurrencies = currencyCrudOperations.findAll();
         System.out.println("All Currencies:");
         allCurrencies.forEach(System.out::println);
-        Currency newCurrency= new Currency(3, "Euro","€");
-        Currency savedCurrency = currencyCrudOperations.save(newCurrency);
-        System.out.println("New subscriber added: " + savedCurrency);
-
 
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
         List<Transaction> allTransactions = transactionCrudOperations.findAll();
         System.out.println("All Currencies:");
         allCurrencies.forEach(System.out::println);
-        Transaction newTransaction= new Transaction(3, 1000.00,LocalDate.now(),2);
+        Transaction newTransaction= new Transaction(9,"Grocery shopping", 5000.00, LocalDateTime.now(),9, "debit");
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);
-
-
 
         try {
             if (conn != null && !conn.isClosed()) {

@@ -3,12 +3,12 @@ package main.entity;
 public class Currency {
     private int id;
     private String name;
-    private String symbol;
+    private String code;
 
     public Currency(int id, String name, String symbol) {
         this.id = id;
         this.name = name;
-        this.symbol = symbol;
+        this.code = symbol;
     }
 
     public int getId() {
@@ -27,12 +27,12 @@ public class Currency {
         this.name = name;
     }
 
-    public String getSymbol() {
-        return symbol;
+    public String getCode() {
+        return code;
     }
 
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
+    public void setCode(String symbol) {
+        this.code = symbol;
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Currency {
         return "Currency{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", symbol='" + symbol + '\'' +
+                ", symbol='" + code + '\'' +
                 '}';
     }
 }
