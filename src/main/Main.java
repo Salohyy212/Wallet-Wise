@@ -76,8 +76,6 @@ public class Main {
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);
 
-
-
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
