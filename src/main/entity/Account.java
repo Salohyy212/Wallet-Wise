@@ -1,6 +1,7 @@
 package main.entity;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Account {
@@ -68,6 +69,37 @@ public class Account {
     public void setType(String type) {
         this.type = type;
     }
+
+    public Account performTransaction(Transaction transaction) {
+        if ("Bank".equals(type) || ("Cash".equals(type) && transaction.getAmount() <= balance)) {
+
+            if ("Debit".equals(transaction.getType())) {
+                balance -= transaction.getAmount();
+            } else if ("Credit".equals(transaction.getType())) {
+                balance += transaction.getAmount();
+            }
+
+            if (transactions == null) {
+                transactions = new ArrayList<>();
+            }
+            transactions.add(transaction);
+            lastUpdate = LocalDateTime.now();
+            return this;
+        } else if ("Debit".equals(transaction.getType())) {
+            System.out.println("Unauthorized debit transaction on a non-bank account.");
+            return null;
+        } else {
+            balance += transaction.getAmount();
+            if (transactions == null) {
+                transactions = new ArrayList<>();
+            }
+            transactions.add(transaction);
+            lastUpdate = LocalDateTime.now();
+            return this;
+        }
+    }
+
+
 
 
 

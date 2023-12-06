@@ -10,7 +10,7 @@ public class Transaction {
     private Double amount;
     private LocalDateTime dateTime;
     private int accountId;
-    private TransactionType type;
+    private String type;
 
     public Transaction(int id, String label, Double amount, LocalDateTime dateTime, int accountId, String type) {
         this.id = id;
@@ -18,7 +18,7 @@ public class Transaction {
         this.amount = amount;
         this.dateTime = dateTime;
         this.accountId = accountId;
-        this.type = TransactionType.valueOf(type);
+        this.type = type;
     }
 
     public int getId() {
@@ -65,8 +65,8 @@ public class Transaction {
         return type;
     }
 
-    public void setType(String type) {
-        this.type = TransactionType.valueOf(type);
+    public String setType(String type) {
+        return type;
     }
 
     @Override

@@ -1,18 +1,13 @@
 package main;
 
 import main.entity.Account;
-import main.entity.Currency;
 import main.entity.Transaction;
-import main.repository.AccountCrudOrepations;
-import main.repository.CurrencyCrudOrepations;
 import main.repository.PostgresqlConf;
-import main.repository.TransactionCrudOperations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.List;
 
 public class Main {
     private final String url;
@@ -55,7 +50,29 @@ public class Main {
         Main mainInstance = Main.getInstance();
         Connection conn = mainInstance.getConnection();
 
-        AccountCrudOrepations accountCrudOperations = new AccountCrudOrepations();
+            // Initialisation d'une instance de compte
+            Account account = new Account(12, "Emma current account", 10000.0, 8, LocalDateTime.now(), "Cash");
+
+            // Affichage du solde initial
+            System.out.println("Initial balance: " + account.getBalance());
+
+            // Création d'une transaction de débit
+            Transaction creditTransaction = new Transaction(11, "Purchase", 500.0, LocalDateTime.now(), account.getId(), "Credit");
+
+            // Appel de la fonction performTransaction
+            Account updatedAccount = account.performTransaction(creditTransaction);
+
+            // Affichage du compte mis à jour
+            if (updatedAccount != null) {
+                System.out.println("Updated account : " + updatedAccount);
+            } else {
+                System.out.println("The transaction failed");
+            }
+
+
+
+
+        /*AccountCrudOrepations accountCrudOperations = new AccountCrudOrepations();
         List<Account> allAccounts = accountCrudOperations.findAll();
         System.out.println("All Accounts:");
         allAccounts.forEach(System.out::println);
@@ -74,7 +91,7 @@ public class Main {
         allCurrencies.forEach(System.out::println);
         Transaction newTransaction= new Transaction(9,"Grocery shopping", 5000.00, LocalDateTime.now(),9, "debit");
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
-        System.out.println("New subscriber added: " + savedTransaction);
+        System.out.println("New subscriber added: " + savedTransaction);*/
 
         try {
             if (conn != null && !conn.isClosed()) {

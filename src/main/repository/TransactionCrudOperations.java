@@ -43,7 +43,7 @@ public class TransactionCrudOperations implements CrudOperations<Transaction> {
                 insertStatement.setDouble(2, transaction.getAmount());
                 insertStatement.setTimestamp(3, Timestamp.valueOf(transaction.getDateTime()));
                 insertStatement.setInt(4, transaction.getAccountId());
-                insertStatement.setString(5, transaction.getType());
+                insertStatement.setString(5, String.valueOf(transaction.getType()));
                 insertStatement.addBatch();
             }
             int[] rowsAffected = insertStatement.executeBatch();
@@ -67,7 +67,7 @@ public class TransactionCrudOperations implements CrudOperations<Transaction> {
             insertStatement.setDouble(2, toSave.getAmount());
             insertStatement.setTimestamp(3, Timestamp.valueOf(toSave.getDateTime()));
             insertStatement.setInt(4, toSave.getAccountId());
-            insertStatement.setString(5, toSave.getType());
+            insertStatement.setString(5, String.valueOf(toSave.getType()));
 
             int rowsAffected = insertStatement.executeUpdate();
             if (rowsAffected > 0) {
