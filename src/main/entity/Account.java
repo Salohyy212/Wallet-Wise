@@ -1,8 +1,5 @@
 package main.entity;
 
-import main.repository.AccountCrudOrepations;
-
-import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -106,11 +103,6 @@ public class Account {
 
         return balanceHistory;
     }
-
-
-
-
-
     @Override
     public String toString() {
         return "Account{" +

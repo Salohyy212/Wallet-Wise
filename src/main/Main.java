@@ -1,15 +1,20 @@
 package main;
 
 import main.entity.Account;
+import main.entity.Currency;
 import main.entity.Transaction;
 import main.repository.AccountCrudOrepations;
+import main.repository.CurrencyCrudOrepations;
 import main.repository.PostgresqlConf;
 import main.repository.TransactionCrudOperations;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 public class Main {
@@ -88,7 +93,7 @@ public class Main {
         transactionCrudOperations.save(creditTransaction);*/
 
         // test of crudOperations:
-        /*AccountCrudOrepations accountCrudOperations = new AccountCrudOrepations();
+        /*AccountCrudOrepations accountCrudOperations1 = new AccountCrudOrepations();
         List<Account> allAccounts = accountCrudOperations.findAll();
         System.out.println("All Accounts:");
         allAccounts.forEach(System.out::println);
@@ -101,7 +106,7 @@ public class Main {
         System.out.println("All Currencies:");
         allCurrencies.forEach(System.out::println);
 
-        TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
+        TransactionCrudOperations transactionCrudOperations1 = new TransactionCrudOperations();
         List<Transaction> allTransactions = transactionCrudOperations.findAll();
         System.out.println("All Transactions:");
         allTransactions.forEach(System.out::println);
@@ -109,7 +114,15 @@ public class Main {
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);*/
 
+       /* private static void testGetBalanceAtDateTime(Account account, String dateTimeString ) throws ParseException {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+            Date targetDateTime = sdf.parse(dateTimeString);
 
+            double balance = account.getBalanceAtDateTime(LocalDateTime.ofInstant(targetDateTime.toInstant(), account.getLastUpdate().getOffset()));
+
+            System.out.println("Balance: " + dateTimeString + ": " + balance);
+
+*/
         try {
             if (conn != null && !conn.isClosed()) {
                 conn.close();
