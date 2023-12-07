@@ -2,8 +2,7 @@ package main.entity;
 
 import main.repository.AccountCrudOrepations;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,6 @@ public class Account {
     private int currencyId;
     private LocalDateTime lastUpdate;
     private String type;
-    private AccountCrudOrepations accountCrudOperations;
 
     public Account(int id, String name, Double balance, int currencyId, LocalDateTime lastUpdate, String type) {
         this.id = id;
@@ -90,8 +88,10 @@ public class Account {
         }
         transactions.add(transaction);
         lastUpdate = LocalDateTime.now();
+
         return this;
     }
+
     public List<Double> getBalanceHistory(LocalDateTime startDate, LocalDateTime endDate) {
         List<Double> balanceHistory = new ArrayList<>();
 
@@ -106,7 +106,6 @@ public class Account {
 
         return balanceHistory;
     }
-
 
 
 

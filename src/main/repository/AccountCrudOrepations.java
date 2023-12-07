@@ -3,6 +3,7 @@ package main.repository;
 import main.Main;
 import main.entity.Account;
 
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -84,7 +85,6 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
         }
         return null;
     }
-
 
 
 

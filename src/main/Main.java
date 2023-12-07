@@ -57,18 +57,17 @@ public class Main {
         AccountCrudOrepations accountCrudOperations = new AccountCrudOrepations();
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
         LocalDateTime currentDate = LocalDateTime.now();
-
-        Account account3 = new Account(22, "Kelly current account", 1000.0, 9, currentDate, "Bank");
+        // test of getBalanceHistory
+        /*Account account3 = new Account(22, "Kelly current account", 1000.0, 9, currentDate, "Bank");
         Transaction debitTransaction = new Transaction(account3.getId(), "Carte", 1000.0, currentDate, account3.getId(), "dedit");
         account3 = account3.performTransaction(debitTransaction);
         System.out.println("Account after the credit transaction : " + account3);
         accountCrudOperations.save(account3);
         transactionCrudOperations.save(debitTransaction);
-
         LocalDateTime startDate = currentDate.minusDays(1);
         LocalDateTime endDate = currentDate.plusDays(3);
         List<Double> balanceHistory = account3.getBalanceHistory(startDate, endDate);
-        System.out.println("Balance History between " + startDate + " and " + endDate + ": " + balanceHistory);
+        System.out.println("Balance History between " + startDate + " and " + endDate + ": " + balanceHistory);*/
 
         // test of perfomTransaction
         /* Account newaccount = new Account(15, "Harry current account", 200000.0, 8, currentDate, "Mobile Money");
