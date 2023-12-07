@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AccountCrudOrepations implements CrudOperations <Account> {
     private final Main db = Main.getInstance();
-    private final Connection connection = db.getConnection();
+    private Connection connection = db.getConnection();
 
     @Override
     public List<Account> findAll() {
@@ -42,8 +42,8 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
                 insertStatement.setString(1, account.getName());
                 insertStatement.setDouble(2, account.getBalance());
                 insertStatement.setInt(3, account.getCurrencyId());
-                insertStatement.setTimestamp(3, Timestamp.valueOf(account.getLastUpdate()));
-                insertStatement.setString(4, account.getType());
+                insertStatement.setTimestamp(4, Timestamp.valueOf(account.getLastUpdate()));
+                insertStatement.setString(5, account.getType());
                 insertStatement.addBatch();
             }
             int[] rowsAffected = insertStatement.executeBatch();
@@ -65,8 +65,8 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
         try (PreparedStatement insertStatement = connection.prepareStatement(insertQuery, Statement.RETURN_GENERATED_KEYS)) {
             insertStatement.setString(1, toSave.getName());
             insertStatement.setDouble(2, toSave.getBalance());
-            insertStatement.setInt(4, toSave.getCurrencyId());
-            insertStatement.setTimestamp(3, Timestamp.valueOf(toSave.getLastUpdate()));
+            insertStatement.setInt(3, toSave.getCurrencyId());
+            insertStatement.setTimestamp(4, Timestamp.valueOf(toSave.getLastUpdate()));
             insertStatement.setString(5, toSave.getType());
 
             int rowsAffected = insertStatement.executeUpdate();
@@ -74,6 +74,8 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
                 ResultSet generatedKeys = insertStatement.getGeneratedKeys();
                 if (generatedKeys.next()) {
                     toSave.setId(generatedKeys.getInt(1));
+
+
                     return toSave;
                 }
             }
@@ -82,4 +84,8 @@ public class AccountCrudOrepations implements CrudOperations <Account> {
         }
         return null;
     }
+
+
+
+
 }

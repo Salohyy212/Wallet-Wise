@@ -12,4 +12,5 @@ CREATE TABLE IF NOT EXISTS account (
 
 INSERT INTO account (name, balance, currency_id, last_update, type) VALUES
    ('Bryan current account', 200000.00, 8, CURRENT_TIMESTAMP, 'Bank'),
-   ('Elise savings account', 170000.00, 9, CURRENT_TIMESTAMP, 'Cash');
+   ('Elise savings account', 170000.00, 9, CURRENT_TIMESTAMP, 'Cash'),
+   ('Emma current account', 30000.00, 9, CURRENT_TIMESTAMP, 'Mobile Money');

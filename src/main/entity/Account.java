@@ -1,5 +1,9 @@
 package main.entity;
 
+import main.repository.AccountCrudOrepations;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +16,7 @@ public class Account {
     private int currencyId;
     private LocalDateTime lastUpdate;
     private String type;
+    private AccountCrudOrepations accountCrudOperations;
 
     public Account(int id, String name, Double balance, int currencyId, LocalDateTime lastUpdate, String type) {
         this.id = id;
@@ -71,34 +76,20 @@ public class Account {
     }
 
     public Account performTransaction(Transaction transaction) {
-        if ("Bank".equals(type) || ("Cash".equals(type) && transaction.getAmount() <= balance)) {
-
-            if ("Debit".equals(transaction.getType())) {
-                balance -= transaction.getAmount();
-            } else if ("Credit".equals(transaction.getType())) {
-                balance += transaction.getAmount();
-            }
-
-            if (transactions == null) {
-                transactions = new ArrayList<>();
-            }
-            transactions.add(transaction);
-            lastUpdate = LocalDateTime.now();
-            return this;
-        } else if ("Debit".equals(transaction.getType())) {
+        if ("debit".equals(transaction.getType()) && !("Bank".equals(type) || ("Cash".equals(type) && transaction.getAmount() <= balance))) {
             System.out.println("Unauthorized debit transaction on a non-bank account.");
             return null;
-        } else {
-            balance += transaction.getAmount();
-            if (transactions == null) {
-                transactions = new ArrayList<>();
-            }
-            transactions.add(transaction);
-            lastUpdate = LocalDateTime.now();
-            return this;
         }
-    }
 
+        balance += ("credit".equals(transaction.getType())) ? transaction.getAmount() : -transaction.getAmount();
+
+        if (transactions == null) {
+            transactions = new ArrayList<>();
+        }
+        transactions.add(transaction);
+        lastUpdate = LocalDateTime.now();
+        return this;
+    }
 
 
 
@@ -114,4 +105,6 @@ public class Account {
                 ", type='" + type + '\'' +
                 '}';
     }
+
+
 }
