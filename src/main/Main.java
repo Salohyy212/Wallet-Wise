@@ -9,6 +9,8 @@ import main.repository.TransactionCrudOperations;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -110,6 +112,14 @@ public class Main {
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);*/
 
+       /* private static void testGetBalanceAtDateTime(Account account, String dateTimeString ) throws ParseException {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
+            Date targetDateTime = sdf.parse(dateTimeString);
+
+            double balance = account.getBalanceAtDateTime(LocalDateTime.ofInstant(targetDateTime.toInstant(), account.getLastUpdate().getOffset()));
+
+            System.out.println("Balance: " + dateTimeString + ": " + balance);
+        }*/
 
         try {
             if (conn != null && !conn.isClosed()) {

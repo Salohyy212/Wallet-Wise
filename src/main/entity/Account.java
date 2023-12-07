@@ -106,6 +106,28 @@ public class Account {
 
         return balanceHistory;
     }
+    public  double getBalanceAtDateTime (LocalDateTime targetDateTime){
+        double balance = 0.0;
+
+        for (Transaction transaction : transactions){
+            LocalDateTime transactionDateTime = transaction.getDateTime();
+
+            if(!transactionDateTime.isAfter(targetDateTime)){
+                if("Credit".equals(transaction.getType())){
+                    balance+= transaction.getAmount();
+                } else if ("Debit".equals(transaction.getType())) {
+                    balance -= transaction.getAmount();
+
+                }
+            }
+        }
+        return balance;
+
+    }
+
+
+
+
 
 
 
