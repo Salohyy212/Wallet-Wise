@@ -81,7 +81,7 @@ public class Account {
             return null;
         }
 
-        if ("Credit".equals(transaction.getType())) {
+        if ("credit".equals(transaction.getType())) {
             balance += transaction.getAmount();
         } else {
             balance -= transaction.getAmount();
