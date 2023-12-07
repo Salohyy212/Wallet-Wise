@@ -2,7 +2,6 @@ package main.entity;
 
 import main.repository.AccountCrudOrepations;
 import main.entity.TransferHistory;
-
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Instant;

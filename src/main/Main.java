@@ -64,7 +64,7 @@ public class Main {
         LocalDateTime currentDate = LocalDateTime.now();
 
         Account account3 = new Account(22, "Kelly current account", 1000.0, 9, currentDate, "Bank");
-        Transaction debitTransaction = new Transaction(account3.getId(), "Carte", 1000.0, currentDate, 2, "dedit");
+        Transaction debitTransaction = new Transaction(account3.getId(), "Carte", 1000.0, currentDate, account3.getId(), "dedit");
         account3 = account3.performTransaction(debitTransaction);
         System.out.println("Account after the credit transaction : " + account3);
         accountCrudOperations.save(account3);
@@ -76,11 +76,11 @@ public class Main {
         System.out.println("Balance History between " + startDate + " and " + endDate + ": " + balanceHistory);
 
         // test of perfomTransaction
-        /*Account account = new Account(15, "Harry current account", 200000.0, 8, currentDate, "Mobile Money");
+        /* Account newaccount = new Account(15, "Harry current account", 200000.0, 8, currentDate, "Mobile Money");
         Transaction creditTransaction = new Transaction(account.getId(), "Birthday", 10000.0, currentDate, account.getId(), "credit");
-        account = account.performTransaction(creditTransaction);
-        System.out.println("Account after the credit transaction : " + account);
-        accountCrudOperations.save(account);
+        newaccount = newaccount.performTransaction(creditTransaction);
+        System.out.println("Account after the credit transaction : " + newaccount);
+        accountCrudOperations.save(newaccount);
 
         Account account2 = new Account(15, "Julie savings account", 5000.0, 9, currentDate, "Bank");
         Transaction debitTransaction = new Transaction(account.getId(), "Gift", 2000.0, currentDate, account.getId(), "debit");
