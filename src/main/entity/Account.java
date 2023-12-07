@@ -80,14 +80,11 @@ public class Account {
             System.out.println("Unauthorized debit transaction on a non-bank account.");
             return null;
         }
-
         if ("credit".equals(transaction.getType())) {
             balance += transaction.getAmount();
         } else if("debit".equals(transaction.getType())) {
             balance -= transaction.getAmount();
         }
-
-
         if (transactions == null) {
             transactions = new ArrayList<>();
         }
@@ -95,6 +92,22 @@ public class Account {
         lastUpdate = LocalDateTime.now();
         return this;
     }
+    public List<Double> getBalanceHistory(LocalDateTime startDate, LocalDateTime endDate) {
+        List<Double> balanceHistory = new ArrayList<>();
+
+        if (transactions != null) {
+            for (Transaction transaction : transactions) {
+                LocalDateTime transactionDate = transaction.getDateTime();
+                if (transactionDate.isAfter(startDate) && transactionDate.isBefore(endDate)) {
+                    balanceHistory.add(transaction.getAmount());
+                }
+            }
+        }
+
+        return balanceHistory;
+    }
+
+
 
 
 

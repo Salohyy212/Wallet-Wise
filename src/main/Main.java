@@ -58,7 +58,20 @@ public class Main {
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
         LocalDateTime currentDate = LocalDateTime.now();
 
-        Account account = new Account(15, "Harry current account", 200000.0, 8, currentDate, "Mobile Money");
+        Account account3 = new Account(22, "Kelly current account", 1000.0, 9, currentDate, "Bank");
+        Transaction debitTransaction = new Transaction(account3.getId(), "Carte", 1000.0, currentDate, account.getId(), "dedit");
+        account3 = account3.performTransaction(debitTransaction);
+        System.out.println("Account after the credit transaction : " + account3);
+        accountCrudOperations.save(account3);
+        transactionCrudOperations.save(debitTransaction);
+
+        LocalDateTime startDate = currentDate.minusDays(1);
+        LocalDateTime endDate = currentDate.plusDays(3);
+        List<Double> balanceHistory = account3.getBalanceHistory(startDate, endDate);
+        System.out.println("Balance History between " + startDate + " and " + endDate + ": " + balanceHistory);
+
+        // test of perfomTransaction
+        /*Account account = new Account(15, "Harry current account", 200000.0, 8, currentDate, "Mobile Money");
         Transaction creditTransaction = new Transaction(account.getId(), "Birthday", 10000.0, currentDate, account.getId(), "credit");
         account = account.performTransaction(creditTransaction);
         System.out.println("Account after the credit transaction : " + account);
@@ -73,7 +86,7 @@ public class Main {
         List<Transaction> transactions = transactionCrudOperations.findAll();
         System.out.println("List of transactions after the transaction: " + transactions);
         transactionCrudOperations.save(debitTransaction);
-        transactionCrudOperations.save(creditTransaction);
+        transactionCrudOperations.save(creditTransaction);*/
 
         // test of crudOperations:
         /*AccountCrudOrepations accountCrudOperations = new AccountCrudOrepations();
