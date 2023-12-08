@@ -12,6 +12,8 @@ public class Account {
     private int currencyId;
     private LocalDateTime lastUpdate;
     private String type;
+    private List<TransferHistory> transferHistory;
+
 
     public Account(int id, String name, Double balance, int currencyId, LocalDateTime lastUpdate, String type) {
         this.id = id;
@@ -103,17 +105,66 @@ public class Account {
 
         return balanceHistory;
     }
+    public double getBalanceAtDateTime(LocalDateTime targetDateTime) {
+        double balance = 0.0;
+
+        if (transactions != null) {
+            for (Transaction transaction : transactions) {
+                LocalDateTime transactionDateTime = transaction.getDateTime();
+
+                if (!transactionDateTime.isAfter(targetDateTime)) {
+                    if ("Credit".equals(transaction.getType())) {
+                        balance += transaction.getAmount();
+                    } else if ("Debit".equals(transaction.getType())) {
+                        balance -= transaction.getAmount();
+                    }
+                }
+            }
+        }
+
+        return balance;
+    }
+    public static void transferMoney(Account sourceAccount, Account targetAccount, double amount) {
+               if (sourceAccount.getId() == targetAccount.getId()) {
+                       System.out.println("Transaction impossible");
+                       return;
+                   }
+               if (sourceAccount.getCurrencyId() == targetAccount.getCurrencyId()) {
+                        if (sourceAccount.getBalance() >= amount) {
+                                sourceAccount.setBalance((sourceAccount.getBalance() - amount));
+                                targetAccount.setBalance(targetAccount.getBalance() + amount);
+                           }
+                        Transaction debitTransaction = new Transaction(sourceAccount.getId(), "2BA4", 200.00, LocalDateTime.now(), 2, "debit");
+                        Transaction creditTransaction = new Transaction(sourceAccount.getId(), "2C04", 1200.00, LocalDateTime.now(), 1, "credit");
+               }
+            }
+    public List<TransferHistory> getTransferHistoryInDateRange(LocalDateTime startDate, LocalDateTime endDate) {
+                    List<TransferHistory> filteredHistory = new ArrayList<>();
+                   if (transferHistory != null) {
+                           for (TransferHistory transfer : transferHistory) {
+                                    LocalDateTime transferDate = LocalDateTime.parse(transfer.getTransferDate());
+
+                                   if (transferDate.isAfter(startDate) && transferDate.isBefore(endDate)) {
+                                           filteredHistory.add(transfer);
+                                        }
+                               }
+                        }
+        return filteredHistory;
+    }
     @Override
     public String toString() {
         return "Account{" +
-                "id=" + id +
+                "transactions=" + transactions +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", balance=" + balance +
                 ", currencyId=" + currencyId +
                 ", lastUpdate=" + lastUpdate +
                 ", type='" + type + '\'' +
+                ", transferHistory=" + transferHistory +
                 '}';
     }
-
-
 }
+
+
+
