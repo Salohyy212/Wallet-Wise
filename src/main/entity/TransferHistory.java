@@ -47,5 +47,15 @@ public class TransferHistory {
     public void setTransferDate(String transferDate) {
         this.transferDate = transferDate;
     }
+
+    @Override
+    public String toString() {
+        return "TransferHistory{" +
+                "idTransfer=" + idTransfer +
+                ", debitTransactionId=" + debitTransactionId +
+                ", creditTransactionId=" + creditTransactionId +
+                ", transferDate='" + transferDate + '\'' +
+                '}';
+    }
 }
 
