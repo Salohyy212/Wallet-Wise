@@ -1,12 +1,10 @@
 package main;
 
 import main.entity.Account;
+import main.entity.Balance;
 import main.entity.Currency;
 import main.entity.Transaction;
-import main.repository.AccountCrudOrepations;
-import main.repository.CurrencyCrudOrepations;
-import main.repository.PostgresqlConf;
-import main.repository.TransactionCrudOperations;
+import main.repository.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -61,31 +59,42 @@ public class Main {
 
         AccountCrudOrepations accountCrudOperations = new AccountCrudOrepations();
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
+        BalanceCrudOperations balanceCrudOperations = new BalanceCrudOperations();
         LocalDateTime currentDate = LocalDateTime.now();
+
+
         // test of getBalanceHistory
-        /*Account account3 = new Account(22, "Kelly current account", 1000.0, 9, currentDate, "Bank");
-        Transaction debitTransaction = new Transaction(account3.getId(), "Carte", 1000.0, currentDate, account3.getId(), "dedit");
-        account3 = account3.performTransaction(debitTransaction);
-        System.out.println("Account after the credit transaction : " + account3);
-        accountCrudOperations.save(account3);
+        /*Account account2 = new Account(36, "Julie current account", 9000.0, 8, currentDate, "Cash");
+        Transaction debitTransaction = new Transaction(account2.getId(), "Make up purchase", 5000.0, currentDate, account2.getId(), "debit");
+        account2 = account2.performTransaction(debitTransaction);
+        System.out.println("Account after the debit transaction : " + account2);
+        accountCrudOperations.save(account2);
         transactionCrudOperations.save(debitTransaction);
         LocalDateTime startDate = currentDate.minusDays(1);
-        LocalDateTime endDate = currentDate.plusDays(3);
-        List<Double> balanceHistory = account3.getBalanceHistory(startDate, endDate);
-        System.out.println("Balance History between " + startDate + " and " + endDate + ": " + balanceHistory);*/
+        LocalDateTime endDate = currentDate.plusDays(4);
+        List<Double> balanceHistory = account2.getBalanceHistory(startDate, endDate);
+        System.out.println("Balance History between " + startDate + " and " + endDate + ": " + balanceHistory);
+        for (Double balance : balanceHistory) {
+            Balance balanceObject = new Balance(4, account2.getId(), balance, currentDate);
+            balanceCrudOperations.save(balanceObject);
+        }
+        List<Balance> balances = balanceCrudOperations.findAll();
+        System.out.println("List of balanceHistory: " + balances);*/
+
+
 
         // test of perfomTransaction
-        /* Account newaccount = new Account(15, "Harry current account", 200000.0, 8, currentDate, "Mobile Money");
-        Transaction creditTransaction = new Transaction(account.getId(), "Birthday", 10000.0, currentDate, account.getId(), "credit");
+       /* Account newaccount = new Account(34, "Jenny current account", 3000.0, 8, currentDate, "Bank");
+        Transaction creditTransaction = new Transaction(newaccount.getId(), "Parie", 5000.0, currentDate, newaccount.getId(), "credit");
         newaccount = newaccount.performTransaction(creditTransaction);
         System.out.println("Account after the credit transaction : " + newaccount);
         accountCrudOperations.save(newaccount);
 
-        Account account2 = new Account(15, "Julie savings account", 5000.0, 9, currentDate, "Bank");
-        Transaction debitTransaction = new Transaction(account.getId(), "Gift", 2000.0, currentDate, account.getId(), "debit");
+        Account account2 = new Account(35, "Nelly savings account", 15000.0, 8, currentDate, "Cash");
+        Transaction debitTransaction = new Transaction(account2.getId(), "Snack", 3000.0, currentDate, account2.getId(), "debit");
         account2 = account2.performTransaction(debitTransaction);
-        System.out.println("Account after the credit transaction : " + account);
-        accountCrudOperations.save(account);
+        System.out.println("Account after the debit transaction : " + account2);
+        accountCrudOperations.save(account2);
 
         List<Transaction> transactions = transactionCrudOperations.findAll();
         System.out.println("List of transactions after the transaction: " + transactions);
