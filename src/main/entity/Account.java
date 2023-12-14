@@ -15,9 +15,12 @@ public class Account {
     private String type;
     private List<TransferHistory> transferHistory;
 
+<<<<<<< HEAD
 
 
 
+=======
+>>>>>>> a5211450d3ef4c6667f2c8669e425005d061afbc
     public Account(int id, String name, Double balance, int currencyId, LocalDateTime lastUpdate, String type) {
         this.id = id;
         this.name = name;
@@ -34,10 +37,10 @@ public class Account {
     public void setId(int id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
+
 
     public void setName(String name) {
         this.name = name;

@@ -13,3 +13,7 @@ CREATE TABLE IF NOT EXISTS transaction (
 INSERT INTO transaction (label, amount, date_time, account_id, type)
 VALUES ('Online Purchase', 500.00, CURRENT_TIMESTAMP, 9, 'debit'),
        ('Salary', 3000.00, CURRENT_TIMESTAMP, 10, 'credit');
+
+ALTER TABLE transaction
+ADD COLUMN category_id INT,
+ADD FOREIGN KEY (category_id) REFERENCES transactionCategory(id);

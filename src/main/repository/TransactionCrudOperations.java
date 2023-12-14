@@ -24,7 +24,8 @@ public class TransactionCrudOperations implements CrudOperations<Transaction> {
                         resultSet.getDouble("amount"),
                         resultSet.getTimestamp("date_time").toLocalDateTime(),
                         resultSet.getInt("account_id"),
-                        resultSet.getString("type")
+                        resultSet.getString("type"),
+                        resultSet.getInt("category_id")
                 );
                 transactionList.add(transaction);
             }
@@ -44,6 +45,7 @@ public class TransactionCrudOperations implements CrudOperations<Transaction> {
                 insertStatement.setTimestamp(3, Timestamp.valueOf(transaction.getDateTime()));
                 insertStatement.setInt(4, transaction.getAccountId());
                 insertStatement.setString(5, String.valueOf(transaction.getType()));
+                insertStatement.setInt(6, transaction.getCategoryId());
                 insertStatement.addBatch();
             }
             int[] rowsAffected = insertStatement.executeBatch();
@@ -68,7 +70,7 @@ public class TransactionCrudOperations implements CrudOperations<Transaction> {
             insertStatement.setTimestamp(3, Timestamp.valueOf(toSave.getDateTime()));
             insertStatement.setInt(4, toSave.getAccountId());
             insertStatement.setString(5, String.valueOf(toSave.getType()));
-
+            insertStatement.setInt(6, toSave.getCategoryId());
             int rowsAffected = insertStatement.executeUpdate();
             if (rowsAffected > 0) {
                 ResultSet generatedKeys = insertStatement.getGeneratedKeys();
