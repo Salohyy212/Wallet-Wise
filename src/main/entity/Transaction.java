@@ -11,14 +11,16 @@ public class Transaction {
     private LocalDateTime dateTime;
     private int accountId;
     private String type;
+    private int categoryId;
 
-    public Transaction(int id, String label, Double amount, LocalDateTime dateTime, int accountId, String type) {
+    public Transaction(int id, String label, Double amount, LocalDateTime dateTime, int accountId, String type, int categoryId) {
         this.id = id;
         this.label = label;
         this.amount = amount;
         this.dateTime = dateTime;
         this.accountId = accountId;
         this.type = type;
+        this.categoryId = categoryId;
     }
 
     public int getId() {
@@ -69,6 +71,18 @@ public class Transaction {
         return type;
     }
 
+    public void setAccountId(int accountId) {
+        this.accountId = accountId;
+    }
+
+    public int getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(TransactionCategory categoryId) {
+        this.categoryId = categoryId.getId();
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -78,6 +92,7 @@ public class Transaction {
                 ", dateTime=" + dateTime +
                 ", accountId=" + accountId +
                 ", type='" + type + '\'' +
+                ", categoryId=" + categoryId +
                 '}';
     }
 }
