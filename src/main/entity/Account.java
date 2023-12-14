@@ -15,12 +15,6 @@ public class Account {
     private String type;
     private List<TransferHistory> transferHistory;
 
-<<<<<<< HEAD
-
-
-
-=======
->>>>>>> a5211450d3ef4c6667f2c8669e425005d061afbc
     public Account(int id, String name, Double balance, int currencyId, LocalDateTime lastUpdate, String type) {
         this.id = id;
         this.name = name;
@@ -140,8 +134,6 @@ public class Account {
                         sourceAccount.setBalance((sourceAccount.getBalance() - amount));
                         targetAccount.setBalance(targetAccount.getBalance() + amount);
                    }
-                Transaction debitTransaction = new Transaction(sourceAccount.getId(), "2BA4", 200.00, LocalDateTime.now(), 2, "debit");
-                Transaction creditTransaction = new Transaction(sourceAccount.getId(), "2C04", 1200.00, LocalDateTime.now(), 1, "credit");
        }
     }
     public List<TransferHistory> getTransferHistoryInDateRange(LocalDateTime startDate, LocalDateTime endDate) {

@@ -124,6 +124,30 @@ public class Main {
 
             System.out.println("Balance: " + dateTimeString + ": " + balance);
 
+               public class TransactionManagerTest {
+
+    public static void main(String[] args) {
+        testGetBalanceAtDateTime();
+    }
+
+    public static void testGetBalanceAtDateTime() {
+
+        Transaction salaryTransaction = new Transaction(1, "Salaire", 100000, "Crédit", LocalDateTime.parse("2023-12-01T00:15:00"));
+        Transaction christmasGiftTransaction = new Transaction(2, "Cadeau de Noël", 50000, "Débit", LocalDateTime.parse("2023-12-02T14:00:00"));
+        Transaction shoeTransaction = new Transaction(3, "Nouvelle chaussure", 20000, "Débit", LocalDateTime.parse("2023-12-06T16:00:00"));
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(salaryTransaction);
+        transactions.add(christmasGiftTransaction);
+        transactions.add(shoeTransaction);
+        TransactionManager transactionManager = new TransactionManager();
+        transactionManager.setTransactions(transactions);
+
+        LocalDateTime targetDateTime = LocalDateTime.parse("2023-12-05T12:00:00");
+        double result = transactionManager.getBalanceAtDateTime(targetDateTime);
+        double expectedBalance = 100000 - 50000 - 20000;  // Solde attendu après les trois transactions
+        if (result == expectedBalance) {
+            System.out.println("Test passed!");
+        }
        */
             try {
                 if (conn != null && !conn.isClosed()) {
