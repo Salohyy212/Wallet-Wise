@@ -148,6 +148,29 @@ public class Main {
         if (result == expectedBalance) {
             System.out.println("Test passed!");
         }
+        public static void main(String[] args) {
+        testTransferMoney();
+    }
+
+    public static void testTransferMoney() {
+        // Créer deux comptes pour le test avec différentes devises
+        Account sourceAccount = new Account(1, "Source Account", 1000.0, "Euro", LocalDateTime.now());
+        Account targetAccount = new Account(2, "Target Account", 500.0, "Ariary", LocalDateTime.now());
+
+        // Ajouter des taux de change pour la conversion Euro vers Ariary
+        CurrencyExchange.setExchangeRate("Euro", "Ariary", 4300.0);
+
+        double transferAmount = 300.0;
+        transferMoney(sourceAccount, targetAccount, transferAmount, LocalDateTime.now());
+
+        double expectedSourceBalance = 1000.0 - transferAmount;
+        double expectedTargetBalance = 500.0 + (transferAmount * 4300.0);
+        assert sourceAccount.getBalance() == expectedSourceBalance : "Test failed! Expected source balance: " + expectedSourceBalance + ", Actual: " + sourceAccount.getBalance();
+        assert targetAccount.getBalance() == expectedTargetBalance : "Test failed! Expected target balance: " + expectedTargetBalance + ", Actual: " + targetAccount.getBalance();
+
+        System.out.println("All tests passed!");
+    }
+}
        */
             try {
                 if (conn != null && !conn.isClosed()) {
