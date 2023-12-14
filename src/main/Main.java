@@ -1,19 +1,11 @@
 package main;
 
-import main.entity.Account;
-import main.entity.Balance;
-import main.entity.Currency;
-import main.entity.Transaction;
 import main.repository.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 public class Main {
     private final String url;
@@ -63,9 +55,10 @@ public class Main {
         LocalDateTime currentDate = LocalDateTime.now();
 
 
+
         // test of getBalanceHistory
         /*Account account2 = new Account(36, "Julie current account", 9000.0, 8, currentDate, "Cash");
-        Transaction debitTransaction = new Transaction(account2.getId(), "Make up purchase", 5000.0, currentDate, account2.getId(), "debit");
+        Transaction debitTransaction = new Transaction(account2.getId(), "Make up purchase", 5000.0, currentDate, account2.getId(), "debit",6);
         account2 = account2.performTransaction(debitTransaction);
         System.out.println("Account after the debit transaction : " + account2);
         accountCrudOperations.save(account2);
@@ -85,13 +78,13 @@ public class Main {
 
         // test of perfomTransaction
        /* Account newaccount = new Account(34, "Jenny current account", 3000.0, 8, currentDate, "Bank");
-        Transaction creditTransaction = new Transaction(newaccount.getId(), "Parie", 5000.0, currentDate, newaccount.getId(), "credit");
+        Transaction creditTransaction = new Transaction(newaccount.getId(), "Parie", 5000.0, currentDate, newaccount.getId(), "credit",13);
         newaccount = newaccount.performTransaction(creditTransaction);
         System.out.println("Account after the credit transaction : " + newaccount);
         accountCrudOperations.save(newaccount);
 
         Account account2 = new Account(35, "Nelly savings account", 15000.0, 8, currentDate, "Cash");
-        Transaction debitTransaction = new Transaction(account2.getId(), "Snack", 3000.0, currentDate, account2.getId(), "debit");
+        Transaction debitTransaction = new Transaction(account2.getId(), "Snack", 3000.0, currentDate, account2.getId(), "debit",1);
         account2 = account2.performTransaction(debitTransaction);
         System.out.println("Account after the debit transaction : " + account2);
         accountCrudOperations.save(account2);
@@ -119,7 +112,7 @@ public class Main {
         List<Transaction> allTransactions = transactionCrudOperations.findAll();
         System.out.println("All Transactions:");
         allTransactions.forEach(System.out::println);
-        Transaction newTransaction= new Transaction(13,"Purchase", 10000.00, LocalDateTime.now(),11, "debit");
+        Transaction newTransaction= new Transaction(13,"Purchase", 10000.00, LocalDateTime.now(),11, "debit",11);
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);*/
 
@@ -131,16 +124,18 @@ public class Main {
 
             System.out.println("Balance: " + dateTimeString + ": " + balance);
 
-*/
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
+       */
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
-}
+
+
 
 
 
