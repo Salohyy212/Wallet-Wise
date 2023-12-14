@@ -1,19 +1,11 @@
 package main;
 
-import main.entity.Account;
-import main.entity.Balance;
-import main.entity.Currency;
-import main.entity.Transaction;
 import main.repository.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
 
 public class Main {
     private final String url;
@@ -61,6 +53,7 @@ public class Main {
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
         BalanceCrudOperations balanceCrudOperations = new BalanceCrudOperations();
         LocalDateTime currentDate = LocalDateTime.now();
+
 
 
         // test of getBalanceHistory
@@ -131,16 +124,18 @@ public class Main {
 
             System.out.println("Balance: " + dateTimeString + ": " + balance);
 
-*/
-        try {
-            if (conn != null && !conn.isClosed()) {
-                conn.close();
+       */
+            try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
-}
+
+
 
 
 
