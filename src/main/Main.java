@@ -2,6 +2,7 @@ package main;
 
 import main.repository.*;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -55,6 +56,18 @@ public class Main {
         LocalDateTime currentDate = LocalDateTime.now();
         //testGetBalanceAtDateTime();
         //testTransferMoney();
+
+
+
+        //test of getEntriesAndExitsSumByIdAccount and getCategorySumByIdAccount
+        /*BigDecimal entriesAndExitsSum = transactionCrudOperations.getEntriesAndExitsSumByIdAccount(9, LocalDateTime.parse("2023-12-01T00:00:00"), LocalDateTime.parse("2023-12-02T23:59:59"));
+
+        System.out.println("Somme des entrées et sorties d'argent : " + entriesAndExitsSum);
+
+
+        BigDecimal categorySum = transactionCrudOperations.getCategorySumByIdAccount(11, LocalDateTime.parse("2023-12-01T00:00:00"), LocalDateTime.parse("2023-12-02T23:59:59"));
+
+        System.out.println("Somme des montants par catégorie : " + categorySum);*/
 
         // test of getBalanceHistory
         /*Account account2 = new Account(36, "Julie current account", 9000.0, 8, currentDate, "Cash");
