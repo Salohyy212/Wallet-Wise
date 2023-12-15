@@ -173,7 +173,23 @@ public class Main {
         assert targetAccount.getBalance() == expectedTargetBalance : "Test failed! Expected target balance: " + expectedTargetBalance + ", Actual: " + targetAccount.getBalance();
 
         System.out.println("All tests passed!");
+         int accountId = 1;
+            Timestamp startDatetime = Timestamp.valueOf("2023-01-01 00:00:00");
+            Timestamp endDatetime = Timestamp.valueOf("2023-01-31 23:59:59");
+            String categoryName = "exampleCategory";
+
+            CategoryTotal result = CategoryTotalDAO.getCategoryTotal(
+                    accountId,
+                    startDatetime,
+                    endDatetime,
+                    categoryName,
+                    connection
+            );
+
+            System.out.println("Category Total: " + result.getCategoryTotal());
+
     }
+
 
        */
 }
