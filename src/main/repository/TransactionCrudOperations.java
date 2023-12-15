@@ -3,9 +3,13 @@ package main.repository;
 import main.Main;
 import main.entity.Transaction;
 
+import java.math.BigDecimal;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.sql.DriverManager.getConnection;
 
 public class TransactionCrudOperations implements CrudOperations<Transaction> {
     private final Main db = Main.getInstance();
@@ -85,4 +89,64 @@ public class TransactionCrudOperations implements CrudOperations<Transaction> {
 
         return null;
     }
+    public BigDecimal getCategorySumByIdAccount(int accountId, LocalDateTime startDate, LocalDateTime endDate) {
+        BigDecimal foodAndDrinksSum = BigDecimal.ZERO;
+        BigDecimal salarySum = BigDecimal.ZERO;
+
+        String sql = "SELECT t.amount, c.category_name " +
+                "FROM \"transaction\" t " +
+                "LEFT JOIN transactionCategory c ON t.category_id = c.id " +
+                "WHERE t.account_id = ? AND t.date_time BETWEEN ? AND ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, accountId);
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(startDate));
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(endDate));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    BigDecimal amount = resultSet.getBigDecimal("amount");
+                    String categoryName = resultSet.getString("category_name");
+                    if ("Food and Drinks".equals(categoryName)) {
+                        foodAndDrinksSum = foodAndDrinksSum.add(amount);
+                        System.out.println("Food and Drinks sum : " + foodAndDrinksSum);
+                    } else if ("Salary".equals(categoryName)) {
+                        salarySum = salarySum.add(amount);
+                        System.out.println("Salary sum :" + salarySum);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return foodAndDrinksSum.add(salarySum);
+    }
+    public BigDecimal getEntriesAndExitsSumByIdAccount(int accountId, LocalDateTime startDate, LocalDateTime endDate) {
+        BigDecimal totalEntries = BigDecimal.ZERO;
+        BigDecimal totalExits = BigDecimal.ZERO;
+
+        String sql = "SELECT t.amount, t.type " +
+                "FROM \"transaction\" t " +
+                "WHERE t.account_id = ? AND t.date_time BETWEEN ? AND ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, accountId);
+            preparedStatement.setTimestamp(2, Timestamp.valueOf(startDate));
+            preparedStatement.setTimestamp(3, Timestamp.valueOf(endDate));
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    BigDecimal amount = resultSet.getBigDecimal("amount");
+                    String transactionType = resultSet.getString("type");
+                    if ("credit".equals(transactionType)) {
+                        totalEntries = totalEntries.add(amount);
+                    } else if ("debit".equals(transactionType)) {
+                        totalExits = totalExits.add(amount);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return totalEntries.add(totalExits);
+    }
+
 }

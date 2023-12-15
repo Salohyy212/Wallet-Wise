@@ -53,8 +53,8 @@ public class Main {
         TransactionCrudOperations transactionCrudOperations = new TransactionCrudOperations();
         BalanceCrudOperations balanceCrudOperations = new BalanceCrudOperations();
         LocalDateTime currentDate = LocalDateTime.now();
-
-
+        //testGetBalanceAtDateTime();
+        //testTransferMoney();
 
         // test of getBalanceHistory
         /*Account account2 = new Account(36, "Julie current account", 9000.0, 8, currentDate, "Cash");
@@ -115,23 +115,15 @@ public class Main {
         Transaction newTransaction= new Transaction(13,"Purchase", 10000.00, LocalDateTime.now(),11, "debit",11);
         Transaction savedTransaction = transactionCrudOperations.save(newTransaction);
         System.out.println("New subscriber added: " + savedTransaction);*/
-
-       /* private static void testGetBalanceAtDateTime(Account account, String dateTimeString ) throws ParseException {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm a");
-            Date targetDateTime = sdf.parse(dateTimeString);
-
-            double balance = account.getBalanceAtDateTime(LocalDateTime.ofInstant(targetDateTime.toInstant(), account.getLastUpdate().getOffset()));
-
-            System.out.println("Balance: " + dateTimeString + ": " + balance);
-
-               public class TransactionManagerTest {
-
-    public static void main(String[] args) {
-        testGetBalanceAtDateTime();
-    }
-
-    public static void testGetBalanceAtDateTime() {
-
+          try {
+                if (conn != null && !conn.isClosed()) {
+                    conn.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+/*  public static void testGetBalanceAtDateTime() {
         Transaction salaryTransaction = new Transaction(1, "Salaire", 100000, "Crédit", LocalDateTime.parse("2023-12-01T00:15:00"));
         Transaction christmasGiftTransaction = new Transaction(2, "Cadeau de Noël", 50000, "Débit", LocalDateTime.parse("2023-12-02T14:00:00"));
         Transaction shoeTransaction = new Transaction(3, "Nouvelle chaussure", 20000, "Débit", LocalDateTime.parse("2023-12-06T16:00:00"));
@@ -141,7 +133,6 @@ public class Main {
         transactions.add(shoeTransaction);
         TransactionManager transactionManager = new TransactionManager();
         transactionManager.setTransactions(transactions);
-
         LocalDateTime targetDateTime = LocalDateTime.parse("2023-12-05T12:00:00");
         double result = transactionManager.getBalanceAtDateTime(targetDateTime);
         double expectedBalance = 100000 - 50000 - 20000;  // Solde attendu après les trois transactions
@@ -170,17 +161,9 @@ public class Main {
 
         System.out.println("All tests passed!");
     }
-}
+
        */
-            try {
-                if (conn != null && !conn.isClosed()) {
-                    conn.close();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
+}
 
 
 
